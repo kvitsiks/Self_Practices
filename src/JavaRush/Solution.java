@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.Buffer;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
@@ -1135,28 +1136,27 @@ import java.util.Scanner;
 */
 
 public class Solution {
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int sum1=0;
-        int  sum =0;
-        int[] arr = new int[3];
-        for(int i=0;i<arr.length;i++){
-            arr[i] = Integer.parseInt(reader.readLine());
+    private static ArrayList<String> strings;
 
+    public static void main(String[] args) {
+        //напишите тут ваш код
+        strings = new ArrayList<String>();
+        Scanner scan = new Scanner(System.in);
+        for (int i = 0; i < 5; i++) {
+            strings.add(scan.nextLine());
         }
-        for(int i=0;i<arr.length;i++){
-            if(i%2==0) {
-                sum += arr[i];
-
-            }else
-            if(!(i%2==0)){
-                sum1+=arr[i];
+        int max = Integer.MIN_VALUE;
+        for (String each: strings) {
+            if (each.length() >= max) {
+                max = each.length();
             }
         }
-        System.out.println(sum1 + " " + sum);
-        if(sum1>sum){
-            System.out.println("В домах с нечетными номерами проживает больше жителей.");
-        }else
-            System.out.println("В домах с четными номерами проживает больше жителей.");
+        for (int i = 0; i < strings.size(); i++)
+        {
+            if (strings.get(i).length() == max)
+                System.out.println(strings.get(i));
+        }
+
     }
 }
+

@@ -165,5 +165,28 @@ Divisible By 3 3 6 9 12 18 21 24 27 33 36 39 42 48 51 54 57 63 66 69 72 78 81 84
         }
     }
 
+    String title = "";
+    String artist = "";
+    int playCount = 0;
+
+    public void setTitle(String title){
+        this.title = title;
+    }
+    public void setArtist(String artist){
+        this.artist = artist;
+    }
+    public void setPlayCount(int playCount){
+        this.playCount = playCount;
+    }
+
+    public String getTitle(){
+        return title;
+    }
+    public String getArtist(){
+        return artist;
+    }
+    public int getPlayCount(){
+        return playCount;
+    }
 
 }

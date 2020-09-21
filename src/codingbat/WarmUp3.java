@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class WarmUp3 {
     public static void main(String[] args) {
         //String str = "Java is fun!";
-        String str1 = "hellhohe";
+        String str1 = "zipXzapvzop";
         String str2 = "W";
         //System.out.println(doubleChar(str));
         //System.out.println(countHi(str));
@@ -17,7 +17,13 @@ public class WarmUp3 {
         //System.out.println(mixString(str1, str2));
         //System.out.println(repeatEnd(str1, 2));
         //System.out.println(repeatFront(str1, 3));
-        System.out.println(prefixAgain(str1, 2));
+        //System.out.println(prefixAgain(str1, 2));
+        //System.out.println(xyzMiddle(str1));
+        //System.out.println(getSandwich(str1));
+        //System.out.println(sameStarChar(str1));
+        //System.out.println(oneTwo(str1));
+        //System.out.println(repeatSeparator("Word", "X", 3));
+        System.out.println(zipZap(str1));
     }
 
     /*
@@ -166,6 +172,7 @@ mixString("xxxx", "There") → "xTxhxexre"
         }
         return result + a.substring(i) + b.substring(i);
     }
+
     /*
     Given a string and an int n, return a string made of n repetitions of the last n characters of the string.
     You may assume that n is between 0 and the length of the string, inclusive.
@@ -180,6 +187,7 @@ repeatEnd("Hello", 1) → "o"
         }
         return result;
     }
+
     /*
 Given a string and an int n, return a string made of the first n characters of the string, followed by the first n-1 characters of the string, and so on.
 You may assume that n is between 0 and the length of the string, inclusive (i.e. n >= 0 and n <= str.length()).
@@ -197,6 +205,7 @@ repeatFront("Ice Cream", 2) → "IcI"
         }
         return result;
     }
+
     /*
     Given a string, consider the prefix string made of the first N chars of the string.
 Does that prefix string appear somewhere else in the string? Assume that the string is not empty and that N is in the range 1..str.length().
@@ -206,7 +215,7 @@ prefixAgain("abXYabc", 3) → false
      */
     public static boolean prefixAgain(String str, int n) {
         String prefix = str.substring(0, n);
-        System.out.println( prefix);
+        System.out.println(prefix);
         for (int i = 0; i < str.length() - n; i++) {
             System.out.println(str.substring(n));
             if (str.substring(n).contains(prefix)) {
@@ -215,6 +224,7 @@ prefixAgain("abXYabc", 3) → false
         }
         return false;
     }
+
     /*
 
 Given a string, does "xyz" appear in the middle of the string? To define middle, we'll say that the number of chars to the left and right of the "xyz"
@@ -224,6 +234,109 @@ xyzMiddle("AxyzBB") → true
 xyzMiddle("AxyzBBB") → false
      */
     public static boolean xyzMiddle(String str) {
-       return false;
+        while (str.length() > 4) {
+            str = str.substring(1, str.length() - 1);
+        }
+        return (str.contains("xyz"));
     }
+
+    /*
+    A sandwich is two pieces of bread with something in between. Return the string that is between the first
+    and last appearance of "bread" in the given string, or return the empty string "" if there are not two pieces of bread.
+getSandwich("breadjambread") → "jam"
+getSandwich("xxbreadjambreadyy") → "jam"
+getSandwich("xxbreadyy") → ""
+     */
+    public static String getSandwich(String str) {
+        int first = str.indexOf("bread");
+        int last = str.lastIndexOf("bread");
+        if (first == last) return "";
+        return str.substring(first + 5, last);
+    }
+
+    /*
+    Returns true if for every '*' (star) in the string, if there are chars both immediately before and after the star, they are the same.
+sameStarChar("xy*yzz") → true
+sameStarChar("xy*zzz") → false
+sameStarChar("*xa*az") → true
+     */
+    public static boolean sameStarChar(String str) {
+        for (int i = 1; i < str.length() - 1; i++) {
+            if (str.charAt(i) == '*') {
+                if (str.charAt(i - 1) != str.charAt(i + 1)) return false;
+            }
+        }
+        return true;
+    }
+
+    /*
+    Given a string, compute a new string by moving the first char to come after the next two chars, so "abc" yields "bca".
+    Repeat this process for each subsequent group of 3 chars, so "abcdef" yields "bcaefd". Ignore any group of fewer than 3 chars at the end.
+oneTwo("abc") → "bca"
+oneTwo("tca") → "cat"
+oneTwo("tcagdo") → "catdog"
+     */
+    public static String oneTwo(String str) {
+        String result = "";
+        for (int i = 0; i < str.length() - 2; i += 3) {
+            result = result + str.substring(i + 1, i + 3) + str.charAt(i);
+        }
+        return result;
+    }
+
+    /*
+
+Look for patterns like "zip" and "zap" in the string -- length-3, starting with 'z' and ending with 'p'.
+Return a string where for all such words, the middle letter is gone, so "zipXzap" yields "zpXzp".
+zipZap("zipXzap") → "zpXzp"
+zipZap("zopzop") → "zpzp"
+zipZap("zzzopzop") → "zzzpzp"
+     */
+    public static String zipZap(String str) {
+        return str.replaceAll("z.p", "zp");
+    }
+
+    /*
+    Given two strings, word and a separator sep, return a big string made of count occurrences of the word,
+    separated by the separator string.
+repeatSeparator("Word", "X", 3) → "WordXWordXWord"
+repeatSeparator("This", "And", 2) → "ThisAndThis"
+repeatSeparator("This", "And", 1) → "This"
+     */
+    public static String repeatSeparator(String word, String sep, int count) {
+        String result = "";
+        int c = count;
+        for (int i = 0; i < count; i++) {
+            if (c != 1) {
+                result += word + sep;
+            } else {
+                result += word;
+            }
+            c--;
+        }
+        return result;
+    }
+
+    /*
+    Return a version of the given string, where for every star (*) in the string the star and the chars immediately
+    to its left and right are gone. So "ab*cd" yields "ad" and "ab**cd" also yields "ad".
+starOut("ab*cd") → "ad"
+starOut("ab**cd") → "ad"
+starOut("sm*eilly") → "silly"
+     */
+    public static String starOut(String str) {
+        String out = "";
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '*' || (i > 0 && str.charAt(i - 1) == '*')) continue;
+            if (i < str.length() - 1 && str.charAt(i + 1) == '*') continue;
+
+            out = out + str.charAt(i);
+        }
+
+        return out;
+    }
+
+    //return str.replaceAll("(\\w?\\*\\w?)", "");
+    //return str.replaceAll("[a-zA-Z1-9]?\\*+[a-zA-Z1-9]?", "");
 }
